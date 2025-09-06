@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/granaflow?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: grana
+    password: flow
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  jackson:
+    default-property-inclusion: non_null
+
+
+security:
+  jwt:
+    secret: "CHANGE_ME_BASE64SECRET"
+    expiration-ms: 2592000000 # 30 dias
