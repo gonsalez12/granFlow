@@ -6,19 +6,19 @@ import jakarta.persistence.Id;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "usuario")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private String name;
+    private String nome;
 
     @Column(unique = true, nullable = false)
     private String email;

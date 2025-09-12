@@ -1,4 +1,4 @@
-package com.granaflow.dto;
+package com.granaflow.dto.usuario;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
+public class CadastroRequest {
     @NotBlank
     private String email;
 
@@ -18,5 +18,5 @@ public class RegisterRequest {
     private String password;
 
     @NotBlank
-    private String name;
+    private String nome;
 }

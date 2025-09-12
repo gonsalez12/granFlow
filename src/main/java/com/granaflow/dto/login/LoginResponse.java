@@ -1,4 +1,4 @@
-package com.granaflow.dto;
+package com.granaflow.dto.login;
 
 import lombok.*;
 

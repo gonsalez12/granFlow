@@ -1,4 +1,4 @@
-package com.granaflow.dto;
+package com.granaflow.dto.usuario;
 
 
 import lombok.AllArgsConstructor;
@@ -10,11 +10,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateRequest {
+public class AtualizacaoRequest {
 
     private String email;
 
     private String password;
 
-    private String name;
+    private String nome;
 }
