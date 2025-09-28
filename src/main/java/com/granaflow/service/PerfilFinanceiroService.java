@@ -3,6 +3,7 @@ package com.granaflow.service;
 import com.granaflow.dto.perfilFinanceiro.PerfilFinanceiroDTO;
 import com.granaflow.dto.perfilFinanceiro.PerfilFinanceiroRequest;
 import com.granaflow.dto.usuario.UsuarioDTO;
+import com.granaflow.exception.BusinessException;
 import com.granaflow.model.PerfilFinanceiro;
 import com.granaflow.model.Usuario;
 import com.granaflow.repository.PerfilFinanceiroRepository;
@@ -22,7 +23,7 @@ public class PerfilFinanceiroService {
     public PerfilFinanceiroDTO criacaoAtualizacao(String usuarioEmail, PerfilFinanceiroRequest request) {
 
         Usuario usuario = usuarioRepository.findByEmail(usuarioEmail)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new BusinessException("Usuário não encontrado"));
 
         UsuarioDTO usuarioDTO = UsuarioDTO.builder()
                 .id(usuario.getId())
@@ -50,7 +51,7 @@ public class PerfilFinanceiroService {
 
     public PerfilFinanceiroDTO buscaProfile(String userEmail) {
         Usuario usuario = usuarioRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+                .orElseThrow(() -> new BusinessException("Usuário não encontrado"));
 
         UsuarioDTO usuarioDTO = UsuarioDTO.builder()
                 .id(usuario.getId())
@@ -59,7 +60,7 @@ public class PerfilFinanceiroService {
                 .build();
 
         PerfilFinanceiro perfilFinanceiro = perfilFinanceiroRepository.findByUsuario(usuario)
-                .orElseThrow(() -> new RuntimeException("Perfil financeiro não encontrado"));
+                .orElseThrow(() -> new BusinessException("Perfil financeiro não encontrado"));
 
         return PerfilFinanceiroDTO.builder()
                 .usuario(usuarioDTO)

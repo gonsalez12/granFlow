@@ -3,6 +3,7 @@ package com.granaflow.service;
 import com.granaflow.dto.usuario.AtualizacaoRequest;
 import com.granaflow.dto.usuario.CadastroRequest;
 import com.granaflow.dto.usuario.UsuarioDTO;
+import com.granaflow.exception.BusinessException;
 import com.granaflow.model.Usuario;
 import com.granaflow.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class UsuarioService {
 
     public Usuario cadastro(CadastroRequest request) {
         if (usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("Usuário já existe!");
+            throw new BusinessException("Usuário já existe!");
         }
 
         Usuario usuario = Usuario.builder()
@@ -36,14 +37,14 @@ public class UsuarioService {
     public Usuario atualizacao(AtualizacaoRequest request, String requesterEmail) {
 
         Usuario usuarioAtualiza = usuarioRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado para atualização"));
+                .orElseThrow(() -> new BusinessException("Usuário não encontrado para atualização"));
 
         Usuario solicitante = usuarioRepository.findByEmail(requesterEmail)
-                .orElseThrow(() -> new RuntimeException("Usuário solicitante não encontrado"));
+                .orElseThrow(() -> new BusinessException("Usuário solicitante não encontrado"));
 
         if (!solicitante.getEmail().equals(usuarioAtualiza.getEmail())
                 && !solicitante.getRole().equals("ROLE_ADMIN")) {
-            throw new RuntimeException("Apenas administradores podem atualizar outros usuários");
+            throw new BusinessException("Apenas administradores podem atualizar outros usuários");
         }
 
         usuarioAtualiza.setNome(request.getNome());
@@ -65,4 +66,6 @@ public class UsuarioService {
                 )
                 .toList();
     }
+
+
 }
