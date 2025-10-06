@@ -21,17 +21,14 @@ public class AuthService {
 
 
     public LoginResponse login(LoginRequest request) {
-        Usuario Usuario = usuarioRepository.findByEmail(request.getEmail())
+        Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new BusinessException("Usuário não encontrado"));
 
-        if (!passwordEncoder.matches(request.getPassword(), Usuario.getPasswordHash())) {
+        if (!passwordEncoder.matches(request.getPassword(), usuario.getPasswordHash())) {
             throw new BusinessException("Senha inválida");
         }
 
-        String token = jwtUtil.generateToken(Usuario.getEmail());
+        String token = jwtUtil.generateToken(usuario.getEmail());
         return new LoginResponse(token);
     }
-
-
-
 }
