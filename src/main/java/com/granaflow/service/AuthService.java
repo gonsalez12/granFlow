@@ -3,6 +3,7 @@ package com.granaflow.service;
 import com.granaflow.config.JwtUtil;
 import com.granaflow.dto.login.LoginRequest;
 import com.granaflow.dto.login.LoginResponse;
+import com.granaflow.exception.BusinessException;
 import com.granaflow.model.Usuario;
 import com.granaflow.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,17 +21,14 @@ public class AuthService {
 
 
     public LoginResponse login(LoginRequest request) {
-        Usuario Usuario = usuarioRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        Usuario usuario = usuarioRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new BusinessException("Usuário não encontrado"));
 
-        if (!passwordEncoder.matches(request.getPassword(), Usuario.getPasswordHash())) {
-            throw new RuntimeException("Senha inválida");
+        if (!passwordEncoder.matches(request.getPassword(), usuario.getPasswordHash())) {
+            throw new BusinessException("Senha inválida");
         }
 
-        String token = jwtUtil.generateToken(Usuario.getEmail());
+        String token = jwtUtil.generateToken(usuario.getEmail());
         return new LoginResponse(token);
     }
-
-
-
 }
