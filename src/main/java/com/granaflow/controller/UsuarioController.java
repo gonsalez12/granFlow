@@ -2,17 +2,15 @@ package com.granaflow.controller;
 
 import com.granaflow.dto.usuario.AtualizacaoRequest;
 import com.granaflow.dto.usuario.CadastroRequest;
-import com.granaflow.dto.usuario.UsuarioDTO;
 import com.granaflow.model.Usuario;
 import com.granaflow.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 
-import java.util.List;
+
 
 
 @RestController
@@ -38,9 +36,4 @@ public class UsuarioController {
         return ResponseEntity.ok("Usuário atualizado com sucesso: " + usuarioAtualizado.getNome());
     }
 
-    @GetMapping("/lista")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<UsuarioDTO>> getAllUsers() {
-        return ResponseEntity.ok(usuarioService.listaUsuario());
-    }
 }

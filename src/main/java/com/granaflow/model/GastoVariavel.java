@@ -1,6 +1,5 @@
 package com.granaflow.model;
 
-
 import com.granaflow.domain.CategoriaGasto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,13 +8,13 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "gastos_fixos")
+@Table(name = "gastos_variaveis")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GastoFixo {
+public class GastoVariavel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +22,9 @@ public class GastoFixo {
 
     private String descricao;
 
-    private BigDecimal valorMensal;
+    private BigDecimal valor;
 
-    private LocalDate dataInicio;
-
-    private LocalDate dataFim;
-
-    private Boolean ativo = true; // Se o gasto ainda está vigente
+    private LocalDate data; // Data do gasto real
 
     @Enumerated(EnumType.STRING)
     private CategoriaGasto categoria;
@@ -38,4 +33,3 @@ public class GastoFixo {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 }
-
