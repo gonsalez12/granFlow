@@ -2,7 +2,7 @@ package com.granaflow.service;
 
 import com.granaflow.dto.usuario.AtualizacaoRequest;
 import com.granaflow.dto.usuario.CadastroRequest;
-import com.granaflow.dto.usuario.UsuarioDTO;
+import com.granaflow.dto.usuario.UsuarioResponse;
 import com.granaflow.exception.BusinessException;
 import com.granaflow.model.Usuario;
 import com.granaflow.repository.UsuarioRepository;
@@ -55,17 +55,6 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioAtualiza);
     }
 
-    public List<UsuarioDTO> listaUsuario() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        return usuarios.stream()
-                .map(usuario -> new UsuarioDTO(
-                        usuario.getId(),
-                        usuario.getNome(),
-                        usuario.getEmail(),
-                        usuario.getRole())
-                )
-                .toList();
-    }
 
 
 }
